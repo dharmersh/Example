@@ -1,0 +1,22 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.11/angular.js"></script>
+<div ng-app="myApp">
+    <div ng-controller="mainCtrl">
+        <select ng-model="selected" data-ng-options="c as c.label group by c.group for c in data | orderBy:['group','label']"></select>
+		Group: -<span ng-bind='selected.group'></span>
+		 Label: -<span ng-bind='selected.label'></span>
+	</div>
+</div>
+<script>
+var app = angular.module('myApp',[]);
+app.controller("mainCtrl", function($scope) {
+    $scope.data = [
+        {group: 'GroupB', label: 'FF'},
+        {group: 'GroupA', label: 'ZZ'},
+        {group: 'GroupB', label: 'DD'},
+        {group: 'GroupA', label: 'YY'},
+        {group: 'GroupB', label: 'BB'},
+        {group: 'GroupA', label: 'XX'}
+    ];
+});
+</script>

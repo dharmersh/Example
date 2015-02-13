@@ -1,0 +1,21 @@
+<table class="table_display">
+				<thead> 
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>Action</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="contact in contacts">
+					<td>{{ contact.name }}</td>
+					<td>{{ contact.email }}</td>
+					<td>{{ contact.phone }}</td>
+					<td>
+						<a href="#" ng-click="edit(contact.id)">edit</a> | 
+						<a href="#" ng-click="delete(contact.id)">delete</a>
+					</td>
+				 </tr>
+				</tbody>
+			</table>    

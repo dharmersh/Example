@@ -1,0 +1,28 @@
+body{
+	width:100%;
+	height:100px;
+}
+.table_display{
+	width:50%;
+	heigth:auto;
+	margin-left:30%;
+	margin-top:5%;
+}
+.div_display{
+	border:1px;
+	margin-left:35%;
+	margin-top:5%;
+	width:30%;
+	heigth:auto%;
+	
+}
+.label_display{
+	margin-right: 35%;
+	position: relative;
+	width:30%;
+	float: right;
+	margin-top: 1px;
+}
+.button_display{
+height:2%;
+}

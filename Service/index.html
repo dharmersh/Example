@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+ <html ng-app="app">
+	<head>
+		<title> My Service</title>
+		<link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css"/>
+		<link  rel="stylesheet" href="Site.css"/>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+		<script type="text/javascript">
+			var module = angular.module('app',[]);
+			
+			module.config(['$routeProvider',
+					  function($routeProvider) {
+						$routeProvider.
+						  when('/AddNewOrder', {
+							templateUrl: '/templates/add_order.html',
+							controller: 'AddOrderController'
+						}).
+						  when('/ShowOrders', {
+							templateUrl: 'templates/show_orders.html',
+							controller: 'ShowOrdersController'
+						  }).
+						  otherwise({
+							redirectTo: '/AddNewOrder'
+						  });
+					}]);
+ 
+ 
+			module.service('ContactService', function () {
+				//to create unique contact id
+				var uid = 1;
+				//contacts array to hold list of all contacts
+				var contacts = [{
+					id: 0,
+					'name': 'Dharmesh',
+					'email': 'dgb@gmail.com',
+					'phone': '123-2343-44'
+				}];
+				//save method create a new contact if not already exists
+				//else update the existing object
+				this.save = function (contact) {
+					if (contact.id == null) {
+						//if this is new contact, add it in contacts array
+						contact.id = uid++;
+						contacts.push(contact);
+						alert("Added SuccessFully");
+					} else {
+						//for existing contact, find this contact using id
+						//and update it.
+						for (i in contacts) {
+							if (contacts[i].id == contact.id) {
+								contacts[i] = contact;
+							}
+						}
+						alert("Update SuccessFully");
+					}
+				}
+				//simply search contacts list for given id
+				//and returns the contact object if found
+				this.get = function (id) {
+					for (i in contacts) {
+						if (contacts[i].id == id) {
+							return contacts[i];
+						}
+					}
+				}
+				//iterate through contacts list and delete 
+				//contact if found
+				this.delete = function (id) {
+					for (i in contacts) {
+						if (contacts[i].id == id) {
+							contacts.splice(i, 1);
+						}
+					}
+				}
+				//simply returns the contacts list
+				this.list = function () {
+					return contacts;
+				}
+			});
+			 
+			module.controller('ContactController', function ($scope, ContactService ) {
+				$scope.contacts = ContactService.list(); 
+				$scope.saveContact = function () {
+				$scope.newcontact.id=null;
+					ContactService.save($scope.newcontact);
+					$scope.newcontact = {};
+					
+				}
+			 
+				$scope.delete = function (id) {
+					var flag=confirm("Do you want to conform");
+					if(flag==true)
+					{
+						ContactService.delete(id);
+						if ($scope.newcontact.id == id) $scope.newcontact = {};
+					}
+				}
+			 
+				$scope.edit = function (id) {
+					$scope.newcontact = angular.copy(ContactService.get(id));
+				}
+			});
+			
+			module.controller('AddOrderController', function($scope) {
+					$scope.message = 'This is Add new order screen';
+				});
+				 
+			
+		</script>
+	</head>
+	<body>
+		<div ng-controller="ContactController">
+			<form>
+			<label class="label row label_display">Register</label>
+				<div class="div_display panel">
+				<br>
+					<label class="label row">Name</label> 
+						<input type="text" name="name" class="input" ng-model="newcontact.name">
+					<label class="label row">Email</label> 
+						<input type="text" name="email" ng-model="newcontact.email">
+					<label class="label row">Phone</label> 
+						<input type="text" name="phone" ng-model="newcontact.phone">
+						<input type="hidden" ng-model="newcontact.id">
+					 <input type="button" class="button tiny" value="Save" ng-click="saveContact()">
+					 
+				 </div>
+			</form>
+			
+			<table class="table_display">
+				<thead> 
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>Action</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="contact in contacts">
+					<td>{{ contact.name }}</td>
+					<td>{{ contact.email }}</td>
+					<td>{{ contact.phone }}</td>
+					<td>
+						<a href="#" ng-click="edit(contact.id)">edit</a> | 
+						<a href="#" ng-click="delete(contact.id)">delete</a>
+					</td>
+				 </tr>
+				</tbody>
+			</table>    
+			
+		</div>
+		<div class="col-md-3">
+					<ul class="nav">
+						<li><a href="#AddNewOrder"> Add New Order </a></li>
+						<li><a href="#ShowOrders"> Show Order </a></li>
+					</ul>
+				</div>
+				<div class="col-md-9">
+					<div ng-view=""></div>
+				</div>
+			</div>
+	</body>
+</html>

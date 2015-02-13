@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Directive Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+    <script>
+        var myApp = angular.module("myApp", []);
+
+        myApp.directive("myWidget", function(){
+            return {
+                restrict: "E",
+                transclude: true,
+                 template: "<h3>Heading</h3><div ng-transclude></div>"
+            };
+        });
+    </script>
+</head>
+<body>
+    <my-widget>
+        <p>Hello World!!</p>
+    </my-widget>
+</body>
+</html>

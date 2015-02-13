@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="utf-8" />
+		<title>Directive Example</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+		<script>
+			var app = angular.module("myApp", []);
+				app.controller("MyCtrl", function($scope) {
+				  $scope.friends = [
+					{ name: "Peter",   age: 20 },
+					{ name: "Pablo",   age: 55 },
+					{ name: "Linda",   age: 20 },
+					{ name: "Marta",   age: 37 },
+					{ name: "Othello", age: 20 },
+					{ name: "Markus",  age: 32 }
+				  ];
+				});
+      
+		</script>
+	</head>
+	<body>
+		<div ng-controller="MyCtrl">
+         <table>
+		 <tr>
+			<td style="vertical-align:top">
+				<input ng-model="query" type="text" placeholder="Filter by" autofocus>
+				<ul ng-repeat="friend in friends | filter:query | orderBy: 'name' ">
+					<li>{{friend.name}}-{{friend.age}}</li>
+				</ul>
+			</td>
+		<td style="vertical-align:top">
+			<input ng-model="name" type="text" placeholder="Filter by" autofocus/>
+			<table>
+				<tr ng-repeat="friend in friends|filter:name|orderBy:name">
+					<td>{{friend.name|uppercase}}</td>
+					<td>{{friend.age}}</td>
+				</tr>
+			</table>
+		</td>
+		</tr>
+	</table>
+  </div>
+	</body>
+</html>

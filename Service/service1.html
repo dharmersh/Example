@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+ <html>
+	<head>
+		<title> My Service</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+		<script type="text/javascript">
+			var app = angular.module('app', []);
+ 
+			app.service('MathService', function() {
+				this.add = function(a, b) {
+								return a + b 
+							};
+							
+				this.subtract = function(a, b) {
+									return a - b 
+								};
+								
+				this.multiply = function(a, b) { 
+									return a * b 
+								};
+								
+				this.divide = function(a, b) {
+									return a / b 
+								};
+			});
+			 
+			app.service('CalculatorService', function(MathService){
+				this.square = function(a) {
+									return MathService.multiply(a,a);
+								};
+				this.cube = function(a) { 
+									return MathService.multiply(a, MathService.multiply(a,a)); 
+								};
+				this.add= function(a,b){
+								return MathService.add(a,b);
+							}
+				this.subtract= function(a,b){
+								return MathService.subtract(a,b);
+							}
+			});
+			 
+			app.controller('CalculatorController', function($scope, CalculatorService) {
+				$scope.doSquare = function() {
+					$scope.answer = CalculatorService.square($scope.number);
+				}
+				$scope.doCube = function() {
+					$scope.answer = CalculatorService.cube($scope.number);
+				}
+				$scope.doAdd = function(){
+					$scope.answer = CalculatorService.add($scope.number,$scope.number2);
+				}
+				$scope.doSub = function(){
+					$scope.answer = CalculatorService.subtract($scope.number,$scope.number2);		
+				}
+			})
+		</script>
+	</head>
+	<body>
+		<div ng-app="app" style="margin-top:10%;margin-left:40%">
+			<div ng-controller="CalculatorController">
+				<table style="width:400px;height:200px">
+					<tr>
+						<td style="vartical-align:top">
+							Enter a number:
+							<input type="number" ng-model="number"/>
+							<br/> for Add subtract or ...
+							<br/>
+							Enter a number:
+							<input type="number" ng-model="number2"/>
+						</td>
+						<td style="vartical-align:top">
+							<table>
+								<tr>
+									<td><button ng-click="doSquare()">X<sup>2</sup></button></td>
+								</tr>
+								<tr>
+									<td><button ng-click="doCube()">X<sup>3</sup></button></td>
+								</tr>
+								<tr>
+									<td><button ng-click="doAdd()"><strong>+</strong></button></td>
+								</tr>
+								<tr>
+									<td><button ng-click="doSub()"><strong>-</strong></button></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				
+				 <div>Answer: {{answer}}</div>
+			</div>
+		</div>
+	</body>
+</html>

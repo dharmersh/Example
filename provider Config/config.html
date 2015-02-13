@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+ 
+<html ng-app="app">
+	<head>
+		<title></title>
+	</head>
+	<body>
+	<div ng-controller="AppCtrl">
+	<input type="text" ng-model="message"/>
+</div>
+		<p>
+			
+			<!-- If we try injecting $routeProvider into our controller like so:
+
+			app.controller("AppCtrl", function($scope, $routeProvider){
+			
+			We can see that we get an error in the console that $routeProviderProvider is not available.
+			This is because it’s actually looking for a service that’s created by a provider so we only need $route.
+			Now if we try to inject $route into our config function, we can see that we get an unknown provider error.
+			This is because at the config phase of the app, we only have providers available to us, which are the factories that generate an instance of things like $route. So let’s try manipulating $route in our controller. Comment out what’s in our config function, and move the route declaration to our controller. -->
+		</p>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+	<script type="text/javascript">
+		var app = angular.module("app", []);
+
+			app.config(function($routeProvider){
+			$routeProvider.when("/",
+			  {
+			     templateUrl: "app.html",
+			    controller: "AppCtrl"
+			   }
+			 );
+			});
+
+			app.controller("AppCtrl", function($scope, $route){
+			   $scope.model = {
+				message: "This is my app!!!"
+			  }
+			});
+	</script>
+	</body>
+</html>

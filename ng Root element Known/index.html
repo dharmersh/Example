@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>
+			Directive Demo
+		</title>
+		<link rel="stylesheet" href="bootstrap.css"/>
+		<script type="text/javascript" src="angular.js"></script>
+		<script type="text/javascript" src="angularApp.js"></script>
+		<script type="text/javascript" src="service.js"></script>
+		<script type="text/javascript" src="angularController.js"></script>
+		<script type="text/javascript" src="filter.js"></script>
+		<script type="text/javascript" src="directive.js"></script>
+		<script type="text/javascript" src="bootstrap.js"></script>
+	<head>
+	<body  ng-controller="Demo">
+		Name:<input type="text" ng-model="name"/>
+		<div>
+			Hello <span ng-bind="name"></span>
+		</div>
+		<div demo-greet></div>
+		<div class="demo-greet"></div>
+		<demo-greet></demo-greet>
+		<zippy title="Show And Hide">
+		LEAK-{{leak}}
+		</zippy>
+		<ul>
+			<li ng-repeat="i in [1,2,3,4,5,6]">{{i}}</li>
+		</ul>
+	</body>
+</html>

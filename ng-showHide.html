@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+	<title>NG-APP</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.11/angular.js"></script>
+	<script type="text/javascript">
+		angular.module('NgHideShowApp', [])
+ .controller('AppCtrl',['$scope', function($scope){
+   var show = false;
+
+   $scope.on = function(){
+     show = true;
+   }
+
+   $scope.off = function(){
+     show = false;
+   } 
+
+   $scope.showButton = function(){
+     return show;
+   }
+}])
+	</script>
+	
+	</head>
+	<body>
+		<div ng-app="NgHideShowApp" ng-controller="AppCtrl">
+			<strong>Click To Toggle</strong> <br>
+			<button ng-click="on()" ng-hide="showButton()"><strong>On</strong></button>  
+			<button ng-click="off()" ng-show="!showButton()"><strong>Off</strong></button>
+		</div>
+	</body>
+</html>
+		

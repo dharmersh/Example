@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+ <html ng-app="app">
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<p style="text-align:center">
+			Thus service is a stateless object that contains some useful functions. These functions can be called from <br /> anywhere; Controllers, Directive, Filters etc. Thus we can divide our application in logical units. The business <br /> logic or logic to call HTTP url to fetch data from server can be put within a service object.<br />
+			
+			Putting business and other logic within services has many advantages. First it fulfills the principle of separation <br />of concern or segregation of duties. Each component is responsible for its own work making application more<br /> manageable. Second this way each component can be more testable. AngularJS provides first class support for <br /> unit testing. Thus we can quickly write tests for our services making them robust and less error prone <br />
+			<img src="angular-js-service-diagram.png"/>
+			
+			<br/>
+			Consider above diagram. Here we divide our application in two controllers: 1. Profile and 2. Dashboard. Each of<br/> these controllers require certain user data from server. Thus instead of repeating the logic to fetch data from<br/> server in each controller, we create a User service which hides the complexity. AngularJS automatically inject<br/> User service in both Profile and Dashboard controller. Thus our application becomes for modular and testable.
+		
+		<br/>
+		</p>
+		<p style="text-align:center">
+		<b> AngularJS Service vs Factory</b>
+			AngularJS services as already seen earlier are singleton objects. These objects are application wide. Thus a <br/>service object once created can be used within any other services or controllers etc.
+
+			<br/>We saw there are two ways (actually four, but for sake of simplicity lets focus on 2 ways that are widely used)<br/> of defining an angularjs service. Using module.factory and module.service.
+			<br/>
+			module.service( 'serviceName', function );
+			<br/>
+			module.factory( 'factoryName', function );<br/>
+			When declaring serviceName as an injectable argument you will be provided with an instance of the function. In<br/> other words new FunctionYouPassedToService(). This object instance becomes the service object that AngularJS<br/> registers and injects later to other services / controllers if required.<br/>
+
+			When declaring factoryName as an injectable argument you will be provided with the value that is returned by<br/> invoking the function reference passed to module.factory.<br/>
+
+			In below example we define MyService in two different ways. Note how in .service we create service methods using<br/> this.methodname. In .factory we created a factory object and assigned the methods to it.
+		</p>
+		
+	<div ng-controller="AppCtrl">
+	<input type="text" ng-model="message"/>
+</div
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+	<script type="text/javascript">
+
+	</script>
+	</body>
+</html>
