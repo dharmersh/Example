@@ -81,7 +81,7 @@
 			module.controller('ContactController', function ($scope, ContactService ) {
 				$scope.contacts = ContactService.list(); 
 				$scope.saveContact = function () {
-				$scope.newcontact.id=null;
+				
 					ContactService.save($scope.newcontact);
 					$scope.newcontact = {};
 					
